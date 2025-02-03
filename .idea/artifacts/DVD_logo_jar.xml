@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DVD-logo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DVD_logo_jar</output-path>
+    <root id="archive" name="DVD-logo.jar">
+      <element id="module-output" name="DVD-logo" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../CityEngine40/CityEngine.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/data/dvd.png" />
+    </root>
+  </artifact>
+</component>
