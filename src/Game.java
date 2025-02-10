@@ -3,6 +3,7 @@ import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 
 import javax.swing.JFrame;
+import java.util.Random;
 
 
 /**
@@ -48,6 +49,9 @@ public class Game {
                     bigX *= -1;
                     body.setLinearVelocity(new Vec2(bigX, bigY));
                 }
+                if(b==0.0 && a == 0.0) {
+                    generateDVD(world);
+                }
             }
         });
         //3. make a view to look into the game world
@@ -77,6 +81,42 @@ public class Game {
         // start our game world simulation!
         world.start();
     }
+
+    public static void generateDVD(World world) {
+        final int[] bigX = {8};
+        final int[] bigY = {8};
+        int[] arr = {-1, 1};
+        Shape bodyShape = new BoxShape((float) 4, (float) 2);
+        DynamicBody body = new DynamicBody(world, bodyShape);
+        body.setPosition(new Vec2(0,0));
+        body.addImage(new BodyImage("data/dvd.png", 8));
+        body.setGravityScale(0);
+        body.setLinearVelocity(new Vec2(bigX[0]*getRandom(arr), bigY[0]));
+        body.addCollisionListener(new CollisionListener() {
+
+            @Override
+            public void collide(CollisionEvent collisionEvent) {
+                float a = collisionEvent.getNormal().x;
+                float b = collisionEvent.getNormal().y;
+                if(a==0.0) {
+                    bigY[0] *= -1;
+                    body.setLinearVelocity(new Vec2(bigX[0], bigY[0]));
+                }
+                if(b==0.0) {
+                    bigX[0] *= -1;
+                    body.setLinearVelocity(new Vec2(bigX[0], bigY[0]));
+                }
+                if(b==0.0 && a == 0.0) {
+                    generateDVD(world);
+                }
+            }
+        });
+    }
+    public static int getRandom(int[] array) {
+        int rnd = new Random().nextInt(array.length);
+        return array[rnd];
+    }
+
 
     /** Run the game. */
     public static void main(String[] args) {
