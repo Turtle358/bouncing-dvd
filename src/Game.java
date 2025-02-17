@@ -41,17 +41,24 @@ public class Game {
             public void collide(CollisionEvent collisionEvent) {
                 float a = collisionEvent.getNormal().x;
                 float b = collisionEvent.getNormal().y;
+
                 if(a==0.0) {
                     bigY *= -1;
                     body.setLinearVelocity(new Vec2(bigX, bigY));
                 }
-                if(b==0.0) {
+                else if(b==0.0) {
                     bigX *= -1;
                     body.setLinearVelocity(new Vec2(bigX, bigY));
                 }
-                if(b==0.0 && a == 0.0) {
+                else if(b==0.0 && a == 0.0) {
+                    bigX *= -1;
+                    bigY *= -1;
+                    body.setLinearVelocity(new Vec2(bigX, bigY));
                     generateDVD(world);
+                } else {
+                    collisionEvent.getOtherBody().destroy();
                 }
+
             }
         });
         //3. make a view to look into the game world
@@ -98,17 +105,26 @@ public class Game {
             public void collide(CollisionEvent collisionEvent) {
                 float a = collisionEvent.getNormal().x;
                 float b = collisionEvent.getNormal().y;
+
                 if(a==0.0) {
                     bigY[0] *= -1;
                     body.setLinearVelocity(new Vec2(bigX[0], bigY[0]));
                 }
-                if(b==0.0) {
+                else if(b==0.0) {
                     bigX[0] *= -1;
                     body.setLinearVelocity(new Vec2(bigX[0], bigY[0]));
+//                    generateDVD(world);
+
                 }
-                if(b==0.0 && a == 0.0) {
+                else if(b==0.0 && a == 0.0) {
+                    bigX[0] *= -1;
+                    bigY[0] *= -1;
+                    body.setLinearVelocity(new Vec2(bigX[0], bigY[0]));
                     generateDVD(world);
+                } else {
+                    collisionEvent.getOtherBody().destroy();
                 }
+
             }
         });
     }
